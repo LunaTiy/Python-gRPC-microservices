@@ -2,9 +2,9 @@ syntax = "proto3";
 
 
 enum BookCategory {
-    MYSTERY = 0;
-    SCIENCE_FICTION = 1;
-    SELF_HELP = 2;
+    BOOK_CATEGORY_MYSTERY = 0;
+    BOOK_CATEGORY_SCIENCE_FICTION = 1;
+    BOOK_CATEGORY_SELF_HELP = 2;
 }
 
 
