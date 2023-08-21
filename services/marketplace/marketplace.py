@@ -3,7 +3,7 @@
 import grpc
 from flask import Flask, render_template
 
-from recommendations_pb2 import BookCategory, RecommendationRequest
+from recommendations_pb2 import RecommendationRequest, RecommendationResponse
 from recommendations_pb2_grpc import RecommendationsStub
 
 app = Flask(__name__)
@@ -15,7 +15,11 @@ recommendations_client = RecommendationsStub(recommendations_channel)
 
 @app.route('/')
 def render_homepage():
-    recommendations_request = RecommendationRequest(user_id=1, category=BookCategory.BOOK_CATEGORY_MYSTERY, max_results=3)
-    recommendations_response = recommendations_client.Recommend(recommendations_request)
+    recommendations_request = RecommendationRequest(id=1)
+    response: RecommendationResponse = recommendations_client.Recommend(recommendations_request)
 
-    return render_template('homepage.html', recommendations=recommendations_response.recommendations)
+    return render_template('homepage.html', book=response.book)
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
