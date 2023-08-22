@@ -65,6 +65,8 @@ services:
     build:
       context: services/
       dockerfile: recommendations/Dockerfile
+    environment:
+      DB_HOST: marketplace_db
     image: recommendations
     networks:
       - test_microservices
