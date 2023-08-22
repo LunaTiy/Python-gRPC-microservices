@@ -1,12 +1,14 @@
+import os
 from contextlib import contextmanager
 from typing import Iterator
 
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 
-from services.recommendations.models import Books
+from models import Books
 
-engine = create_engine("postgresql+psycopg2://postgres:qwerty123@localhost:5432/marketplace", echo=False)
+DB_HOST = os.getenv('DB_HOST', 'localhost')
+engine = create_engine(f"postgresql+psycopg2://postgres:qwerty123@{DB_HOST}:5432/marketplace", echo=False)
 session_maker = sessionmaker(bind=engine, expire_on_commit=False)
 
 
