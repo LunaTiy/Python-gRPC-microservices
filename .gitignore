@@ -1,3 +1,4 @@
 ﻿/venv/
 /.idea/
 *.pyc
+/python_grpc_microservices.egg-info/
