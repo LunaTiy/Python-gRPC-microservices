@@ -13,7 +13,7 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15recommendations.proto\"#\n\x15RecommendationRequest\x12\n\n\x02id\x18\x01 \x01(\x05\"&\n\x16RecommendationResponse\x12\x0c\n\x04\x62ook\x18\x01 \x01(\t2O\n\x0fRecommendations\x12<\n\tRecommend\x12\x16.RecommendationRequest\x1a\x17.RecommendationResponseb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\x15recommendations.proto\",\n\x15RecommendationRequest\x12\x13\n\x0b\x63\x61tegory_id\x18\x01 \x01(\x05\"&\n\x16RecommendationResponse\x12\x0c\n\x04\x62ook\x18\x01 \x01(\t2O\n\x0fRecommendations\x12<\n\tRecommend\x12\x16.RecommendationRequest\x1a\x17.RecommendationResponseb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'recommendations_pb2', globals())
@@ -21,9 +21,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
   _RECOMMENDATIONREQUEST._serialized_start=25
-  _RECOMMENDATIONREQUEST._serialized_end=60
-  _RECOMMENDATIONRESPONSE._serialized_start=62
-  _RECOMMENDATIONRESPONSE._serialized_end=100
-  _RECOMMENDATIONS._serialized_start=102
-  _RECOMMENDATIONS._serialized_end=181
+  _RECOMMENDATIONREQUEST._serialized_end=69
+  _RECOMMENDATIONRESPONSE._serialized_start=71
+  _RECOMMENDATIONRESPONSE._serialized_end=109
+  _RECOMMENDATIONS._serialized_start=111
+  _RECOMMENDATIONS._serialized_end=190
 # @@protoc_insertion_point(module_scope)

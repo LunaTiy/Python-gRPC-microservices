@@ -1,15 +1,25 @@
-﻿from concurrent import futures
+﻿import random
+from concurrent import futures
 from signal import signal, SIGTERM
 
 import grpc
 
 import recommendations_pb2_grpc
 from recommendations_pb2 import RecommendationResponse
+from models import Books
+from sa_utils import session_scope
 
 
 class RecommendationService(recommendations_pb2_grpc.RecommendationsServicer):
     def Recommend(self, request, context):
-        return RecommendationResponse(book='test')
+        with session_scope() as s:
+            books: list[Books] = s.query(Books).filter(Books.category_id == request.category_id).all()
+            if len(books) == 0:
+                return RecommendationResponse()
+
+        book: Books = random.choice(books)
+        print(f"Book: {book.book_name}")
+        return RecommendationResponse(book=book.book_name)
 
 
 def serve():

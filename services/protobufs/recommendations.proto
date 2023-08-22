@@ -1,14 +1,12 @@
 syntax = "proto3";
 
 message RecommendationRequest {
-    int32 id = 1;
+    int32 category_id = 1;
 }
-
 
 message RecommendationResponse {
     string book = 1;
 }
-
 
 service Recommendations {
     rpc Recommend (RecommendationRequest) returns (RecommendationResponse);
