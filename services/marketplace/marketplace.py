@@ -1,4 +1,5 @@
 ﻿import os
+import random
 
 import grpc
 from flask import Flask, render_template
@@ -15,7 +16,8 @@ recommendations_client = RecommendationsStub(recommendations_channel)
 
 @app.route('/')
 def render_homepage():
-    recommendations_request = RecommendationRequest(id=1)
+    category = random.randint(1, 3)
+    recommendations_request = RecommendationRequest(category_id=category)
     response: RecommendationResponse = recommendations_client.Recommend(recommendations_request)
 
     return render_template('homepage.html', book=response.book)
