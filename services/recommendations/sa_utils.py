@@ -4,9 +4,9 @@ from typing import Iterator
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, Session
 
-from services.recommendations.models import Book
+from services.recommendations.models import Books
 
-engine = create_engine("postgresql+psycopg2://postgres:qwerty123@localhost:5432/test-db", echo=False)
+engine = create_engine("postgresql+psycopg2://postgres:qwerty123@localhost:5432/marketplace", echo=False)
 session_maker = sessionmaker(bind=engine, expire_on_commit=False)
 
 
@@ -25,5 +25,5 @@ def session_scope() -> Iterator[Session]:
 
 if __name__ == "__main__":
     with session_scope() as s:
-        book = s.query(Book).filter(Book.id == 1).first()
+        book = s.query(Books).filter(Books.category_id == 1).all()
         pass
