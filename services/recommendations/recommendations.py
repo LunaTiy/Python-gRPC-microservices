@@ -1,24 +1,44 @@
-﻿import random
+﻿import logging
+import random
+import socket
 from concurrent import futures
 from signal import signal, SIGTERM
 
 import grpc
 
 import recommendations_pb2_grpc
-from recommendations_pb2 import RecommendationResponse
 from models import Books
+from recommendations_pb2 import RecommendationResponse
 from sa_utils import session_scope
+
+hostname = socket.gethostname()
+ip_address = socket.gethostbyname(hostname)
+
+
+def init_logger():
+    logger = logging.getLogger(__name__)
+    logger.setLevel(logging.DEBUG)
+
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.DEBUG)
+    logger.addHandler(console_handler)
+    return logger
 
 
 class RecommendationService(recommendations_pb2_grpc.RecommendationsServicer):
+    logger = init_logger()
+
     def Recommend(self, request, context):
         with session_scope() as s:
+            self.logger.debug(
+                f"Hostname: {hostname} with ip: {ip_address} get request with category id: {request.category_id}")
             books: list[Books] = s.query(Books).filter(Books.category_id == request.category_id).all()
             if len(books) == 0:
+                self.logger.debug("Empy result from db")
                 return RecommendationResponse()
 
         book: Books = random.choice(books)
-        print(f"Book: {book.book_name}")
+        self.logger.debug(f"Selected book: {book.id} - {book.book_name}")
         return RecommendationResponse(book=book.book_name)
 
 
